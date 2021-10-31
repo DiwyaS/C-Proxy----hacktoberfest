@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 
-namespace ProxyScrapeFunction
+namespace ProxyScrape
 {
  //code here
    static void Main(string[] args)
@@ -30,7 +30,13 @@ namespace ProxyScrapeFunction
             Console.WriteLine("Remainder = " + remainder);
             Console.ReadLine();
 	 
-	
+	 
+	 string UseSource = SiteSource.ReadToEnd;
+	int SplitVar = 0;
+	bool Port = false;
+	bool useport = false;
+	string portval = null;
+	Regex reg = default(Regex);
 	 
 	 if (Form1.ListBox1.SelectedItem.ToString.Contains("http://www.proxynova.com/proxy-server-list/")) {
 		reg = new Regex("<span class=\"row_proxy_ip\">.*");
@@ -62,6 +68,10 @@ namespace ProxyScrapeFunction
 			string o = ProxyString.Value.Split(">").GetValue(4);
 			string d = o.Split("<").GetValue(0);
 			z = z + ":" + d;
+		}
+		if (useport) {
+			z = z.Replace("\t\t  ", "");
+			z = z + ":" + portval;
 		}
 		if (Information.IsNumeric(z(0))) {
 			Form1.lstproxies.Items.Add(z);
